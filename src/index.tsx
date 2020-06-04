@@ -1,9 +1,14 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { render } from "react-dom";
+import Home from "./components/Home";
 
-import { Home } from "./components/Home";
+render(<Home />, document.getElementById("root"));
 
-ReactDOM.render(
-    <Home compiler="TypeScript" framework="React" />,
-    document.getElementById("example")
-);
+// Hot Module Replacement
+declare let module: { hot: any };
+
+if (module.hot) {
+  module.hot.accept("./components/Home", () => {
+    render(<Home />, document.getElementById("root"));
+  });
+}
